@@ -1,4 +1,5 @@
 import {Button, StyleSheet, Text, View} from 'react-native';
+import { TMDB_BASE_URL } from '@env';
 
 const styles = StyleSheet.create({
   containerSlider: {
@@ -39,7 +40,7 @@ export function Slider() {
         <Text>1</Text>
       </View>
       <View style={styles.footerSlider}>
-        <Button color={'green'} title="WishList"></Button>
+        <Button color={'green'} title="WishList" onPress={() => {console.log(TMDB_BASE_URL)}}></Button>
         <Button color={'green'} title="Details"></Button>
       </View>
     </View>
