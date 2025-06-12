@@ -1,21 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {getImagePath, getPopularMovies} from '../../utils/service/TMDBService';
-
-interface DataMovie {
-  id: string;
-  overview: string;
-  title: string;
-  poster_path: string;
-  release_date: string;
-}
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { getPopularMovies } from '../../utils/service/TMDBService';
+import { Slider } from './Slider';
+import { DataMovie } from '../interfaces/Movie';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#1d49e8',
-    marginVertical: 70,
-    paddingHorizontal: 16,
-    paddingVertical: 40,
+    width: "100%"
   },
 });
 
@@ -24,7 +15,6 @@ export function Home() {
   const showPopularMovies = () => {
     getPopularMovies().then((data: any) => {
       setMovies(data);
-      console.log(data);
     });
   };
   useEffect(() => {
@@ -32,28 +22,7 @@ export function Home() {
   }, []);
   return (
     <View style={styles.container}>
-      <Text>Homes component</Text>
-      <ScrollView>
-        {movies.map(movie => (
-          <View key={movie.id}>
-            <View>
-              <Image
-                source={{uri: getImagePath(movie.poster_path)}}
-                style={{width: 200, height: 300}}
-                resizeMode="cover"
-              />
-            </View>
-            <View>
-              <View>
-                <Text>Title: {movie.title}</Text>
-              </View>
-              <View>
-                <Text>description: {movie.overview}</Text>
-              </View>
-            </View>
-          </View>
-        ))}
-      </ScrollView>
+      <Slider movies={movies.slice(0, 5)} />
     </View>
   );
 }

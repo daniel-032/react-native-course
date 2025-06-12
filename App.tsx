@@ -1,21 +1,13 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Home} from './src/screens/Home';
-import { Slider } from './src/screens/Slider';
+import { Home } from './src/screens/Home';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 function App(): React.JSX.Element {
   return (
-    <View style={styles.mainContainer}>
+    <GestureHandlerRootView style={{flex: 1, backgroundColor: "black"}}>
       <Home/>
-      <Slider />
-    </View>
+    </GestureHandlerRootView>
   );
 }
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-  },
-});
 
 export default App;
