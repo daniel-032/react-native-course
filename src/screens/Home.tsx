@@ -27,7 +27,7 @@ export function Home() {
       <Slider movies={movies.slice(0, 5)} />
       <CarouselHeader title={'Marvel studios'} onPressSeeMore={() => { }} />
       <CarouselMovies typeTitle='textBelow' movies={movies.slice(0, 10)} />
-      <CarouselHeader title={'Marvel studios'} onPressSeeMore={() => { }} />
+      <CarouselHeader title={'BestMovies'} onPressSeeMore={() => { }} />
       <CarouselMovies typeTitle='textOver' movies={movies.slice(0, 10)} />
     </ScrollView>
   );

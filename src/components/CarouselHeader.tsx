@@ -26,7 +26,7 @@ const style = StyleSheet.create({
 export function CarouselHeader({ title, onPressSeeMore }: CarouselHeaderProps) {
     return (
         <View style={style.containerHeader}>
-            <Text style={style.titleText}>Marvel studios</Text>
+            <Text style={style.titleText}>{title}</Text>
             <TouchableOpacity onPress={onPressSeeMore}>
                 <Text style={style.actionText}>See more</Text>
             </TouchableOpacity>
