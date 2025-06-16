@@ -1,6 +1,6 @@
-import { Dimensions, Image, StyleSheet, View } from 'react-native';
+import { Dimensions, Image, Modal, StyleSheet, Text, View } from 'react-native';
 import { DataMovie } from '../interfaces/Movie';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Carousel, {
   ICarouselInstance,
   Pagination,
@@ -9,6 +9,8 @@ import { useSharedValue } from 'react-native-reanimated';
 import { getImagePath } from '../../utils/service/TMDBService';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomButton from '../components/CustomButton';
+import ButtonSheetModal from '../components/ButtonSheetModal';
+import { useAnimatedReaction, runOnJS } from 'react-native-reanimated';
 
 type SliderProps = {
   movies: DataMovie[];
@@ -26,14 +28,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 10,
   },
-  mainSlider: {
-    paddingVertical: 80,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    borderBlockColor: 'black',
-    borderWidth: 1,
-  },
   buttonsSlider: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -43,20 +37,37 @@ const styles = StyleSheet.create({
     width: '100%',
     bottom: 20,
   },
+  modalStyle: {
+
+  }
 });
 
-const width = Dimensions.get('window').width;
+const { width, height } = Dimensions.get('window');
 
 export function Slider({ movies }: SliderProps) {
   const ref = useRef<ICarouselInstance>(null);
   const progress = useSharedValue<number>(0);
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
+  useAnimatedReaction(
+  () => Math.round(progress.value),
+  (result) => {
+    runOnJS(setCurrentIndex)(result);
+  },
+  []
+  );
+  
   const onPressPagination = (index: number) => {
     ref.current?.scrollTo({
       count: index - progress.value,
       animated: true,
     });
   };
+
+  const onPressDetails = () => {
+    setIsVisibleModal(!isVisibleModal);
+  }
 
   return (
     <View style={styles.containerSlider}>
@@ -106,6 +117,7 @@ export function Slider({ movies }: SliderProps) {
               fontWeight: '400',
               fontSize: 20,
             }}
+            onPress={onPressDetails}
             backgroundColor="#F2C94C"></CustomButton>
         </View>
       </View>
@@ -120,6 +132,16 @@ export function Slider({ movies }: SliderProps) {
         containerStyle={{ gap: 8, marginTop: 10 }}
         onPress={onPressPagination}
       />
+      {
+        (movies && movies.length && movies[currentIndex]) ? (
+          <ButtonSheetModal onClose={() => { setIsVisibleModal(false) }} visible={isVisibleModal}>
+            <View style={{ paddingBlock: 15, gap: 10 }} >
+              <Text style={{ color: "white", fontWeight: "bold", fontSize: 18 }} >{movies[currentIndex].title}</Text>
+              <Text style={{ color: "white", fontSize: 16 }}>{movies[currentIndex].overview}</Text>
+            </View>
+          </ButtonSheetModal>
+        ) : null
+      }
     </View>
   );
 }
