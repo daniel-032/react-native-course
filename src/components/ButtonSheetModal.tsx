@@ -50,7 +50,6 @@ const ButtonSheetModal = ({ visible, onClose, children }: Props) => {
                     <TouchableWithoutFeedback onPress={onClose}>
                         <View style={StyleSheet.absoluteFill} />
                     </TouchableWithoutFeedback>
-
                     <Animated.View
                         style={[
                             styles.modalContainer,
@@ -61,7 +60,7 @@ const ButtonSheetModal = ({ visible, onClose, children }: Props) => {
                         <CustomButton
                             backgroundColor='#F2C94C'
                             textColor='black'
-                            text='Close modal'
+                            text='Close'
                             onPress={onClose}
                         />
                     </Animated.View>
