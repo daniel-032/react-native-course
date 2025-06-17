@@ -1,11 +1,12 @@
 import React from 'react';
-import { Home } from './src/screens/Home';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { TabNavigationWrapper } from './wrappers/TabNavigationWrapper';
 
 function App(): React.JSX.Element {
+
   return (
-    <GestureHandlerRootView style={{flex: 1, backgroundColor: "black"}}>
-      <Home/>
+    <GestureHandlerRootView>
+      <TabNavigationWrapper/>
     </GestureHandlerRootView>
   );
 }

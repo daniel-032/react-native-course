@@ -5,12 +5,8 @@ import { Slider } from './Slider';
 import { DataMovie } from '../interfaces/Movie';
 import { CarouselHeader } from '../components/CarouselHeader';
 import { CarouselMovies } from '../components/CarouselMovies';
+import { stylesScreen } from '../../styles/screenStyles';
 
-const styles = StyleSheet.create({
-  container: {
-    width: "100%"
-  },
-});
 
 export function Home() {
   const [movies, setMovies] = useState<DataMovie[]>([]);
@@ -23,7 +19,7 @@ export function Home() {
     showPopularMovies();
   }, []);
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={stylesScreen.container}>
       <Slider movies={movies.slice(0, 5)} />
       <CarouselHeader title={'Marvel studios'} onPressSeeMore={() => { }} />
       <CarouselMovies typeTitle='textBelow' movies={movies.slice(0, 10)} />
